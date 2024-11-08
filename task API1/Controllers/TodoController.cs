@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using task_API1.Services;
+using TaskAPI.Service;
 
 namespace task_API1.Controllers
 {
@@ -10,17 +11,17 @@ namespace task_API1.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private TodoService _todoService;
+        private readonly ITodoRepository _todoService;
 
-        public TodoController()
+        public TodoController(ITodoRepository repository)
         {
-            _todoService = new TodoService();
+            _todoService = repository;
         }
 
         [HttpGet("{id?}")]
         public IActionResult GetTodos(int? id)
         {
-            var myTodos = _todoService.AllTodos() ;
+            var myTodos = _todoService.AllToDos();
             if (id is null) return Ok(myTodos);
             myTodos = myTodos.Where(t => t.Id == id).ToList();
             return Ok(myTodos);

@@ -1,9 +1,9 @@
 ﻿using task_API1.Models;
 using System.Collections.Generic;
-
+using TaskAPI.Service;
 namespace task_API1.Services
 {
-    public class TodoService
+    public class TodoService : ITodoRepository
     {
         //get todos
         public List<Todo> AllTodos()
@@ -43,6 +43,11 @@ namespace task_API1.Services
             };
             todos.Add(todo3);
             return todos;
+        }
+
+        public List<Todo> AllToDos()
+        {
+            throw new NotImplementedException();
         }
     }
 }
